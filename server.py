@@ -55,7 +55,7 @@ async def init_handler(on_request, websocket: websockets.ServerConnection):
             await websocket.send(json.dumps({"type": "pong"}))
         
         elif msg.get("type") == "tick":
-            await websocket.send(str(on_request(msg, session)))
+            await websocket.send(str(on_request(msg, session, message)))
         
         else:
             log.info(f"Unknown message type: {msg.get("type")}")

@@ -4,23 +4,29 @@ import json
 import llm
 
 
-def on_request(data, session):
-    print(f"data: {json.dumps(data, indent=2)}\nsession: {session}")
+messages = []
 
-    response = llm.get_action(data, session)
+def on_request(data, session, raw_message):
+    global messages
+
+    print(raw_message)
+
+    return input();
+
+    print("messages: "+str(messages))
+
+    actions, response, messages = llm.get_action(data, session, messages)
     print("\n\n--------------------1---------------------\n")
     print(response.message.thinking)
     print("\n\n--------------------2---------------------\n")
     print(response.message.content)
-    print("\n\n------------------------------------------\n")
+    print("\n\n--------------------3---------------------\n")
+    print(actions)
 
-    message = str(response.message.content)
 
 
-    print("response: "+message)
     try:
-        print("formated:\n"+json.dumps(json.loads(message), indent=2))
-        return message;
+        return actions if actions else "";
 
     except Exception as e:
         e.with_traceback()
