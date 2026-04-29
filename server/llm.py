@@ -22,7 +22,7 @@ def recall(query, n=3):
     results = collection.query(query_texts=[query], n_results=n)
     return results["documents"][0]
 
-def submit_action(thought: str, action: int) -> str:
+def submit_action(thought: str, action: int) -> dict:
     """Subbmit your actions to be done
 
     Args:
@@ -30,7 +30,7 @@ def submit_action(thought: str, action: int) -> str:
       action: an integer from 0 to 4, 0 = idle, 1 = move_forwards, 2 = move_backwards, 3 = turn_right, 4 = turn_left.
     
     Returns:
-      the structured JSON for yout action
+      The results of your action
     """
     action = "move_forwards" if action == 1 else "move_backwards" if action == 2 else "turn_right" if action == 3 else "turn_left" if action == 4 else "idle"
 

@@ -5,5 +5,7 @@ description = "An AI agent for Minecraft"
 readme = "../README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "chromadb>=1.5.8",
+    "ollama>=0.6.1",
     "websockets>=16.0",
 ]
