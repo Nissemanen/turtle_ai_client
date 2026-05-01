@@ -58,25 +58,12 @@ all blocks you can see in the list are 1 block away from your position (includin
 to do anything you have gotten a tool "submit_action".
 currently, you can not interract with any blocks. You can only move arround and try searching for things.
     """.strip()}]
-    else:
-        messages.append({"role":"system", "content":f"## Surroundings:\n{data.get('scan')}\n\n{facing_text}"})
 
     response = ollama.chat(model="qwen3.5:latest", messages=messages, think=True, tools=[submit_action])
 
     messages.append(response.message)
 
-    result = None
-
-    if response.message.tool_calls:
-        call = response.message.tool_calls[0]
-        result = submit_action(**call.function.arguments)
-
-        messages.append({"role": "tool", "tool_name": call.function.name, "content":result})
-
-    while len(messages) > 10:
-        messages.pop(1)
-
-    return result, response, messages
+    return response
 
 def parse_llama_message(message:str):
     return message.split("\n\n")[1]
